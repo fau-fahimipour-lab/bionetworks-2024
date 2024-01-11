@@ -1,2 +1,2 @@
-# bionetworks-2024
-A course page for Biological Networks | Spring 2022
+# Biological Networks - Spring 2024
+A course page for Biological Networks | Spring 2024
