@@ -69,20 +69,36 @@ plot(G, vertex.label = NA, vertex.size = 10, vertex.color = nodeStates,
      layout = myLayout)
 ```
 
-Now we need a rule for updating our states in each time step. A common one is known as fractional contagion.
-This says I will change my opinion if a majority of my neighbors have that opinion.
+Now we need a rule for updating our states in each time step. A common one is the SIS model we have already studied.
 
 ```r
-## Update my states function
-updateStates = function(A, nodeStates){
+## Update my states for -- one time step --
+updateStates = function(A, nodeStates, p = 0.15, r = 0.45){
   ## A blank vector to fill in my next states
   newStates = rep(NA, length(nodeStates))
   ## Loop through each node in the network
   for(i in 1:nrow(A)){
-    neighbors = which(A[i, ] == 1)
-    neighborStates = c(nodeStates[neighbors], nodeStates[i])
-    averageState   = mean(neighborStates)
-    newStates[i]   = ifelse(averageState <= 0.5, 0, 1)
+    ## -
+    ## Recovery 
+    ## -
+    ## If the node is already infected, they recover with probability r
+    if(nodeStates[i] == 1){
+      ## Flip a coin with probability of heads = r. If heads, recover.
+      coinFlip     = rbinom(n = 1, size = 1, prob = 1 - r)
+      newStates[i] = coinFlip
+    } else{
+      ## -
+      ## Infection 
+      ## -
+      ## Which nodes are my neighbors?
+      neighbors = which(A[i, ] == 1)
+      ## What are their current states?
+      neighborStates = nodeStates[neighbors]
+      ## How many infected neighbors do I have?
+      nInfectedNeigh = sum(neighborStates)
+      ## Flip nInfectedNeigh coins and if any are heads, infect me
+      newStates[i]   = 1 * (any(rbinom(n = nInfectedNeigh, size = 1, prob = p) == 1))
+    }
   }
   ## Return my new states
   newStates
