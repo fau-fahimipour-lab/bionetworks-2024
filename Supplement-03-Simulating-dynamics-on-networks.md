@@ -1,4 +1,4 @@
-# Simulating opinion dynamics on a real social network
+# Simulating SIS dynamics on a real social network
 First, we need to download some real data. I suggest browsing Mark Newman's website for some cleaned-up networks: 
 [http://www-personal.umich.edu/~mejn/netdata/](http://www-personal.umich.edu/~mejn/netdata/)
 
