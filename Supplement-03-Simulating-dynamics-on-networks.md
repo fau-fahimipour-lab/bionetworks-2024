@@ -52,7 +52,7 @@ I can also compute the mean degree (z) in 2 ways. Starting from a vector of degr
 ```r
 degreeCounts = table(degrees)
 degreeFrequencies = degreeCounts / nrow(A) ## Note: that nrow(A) is the number of rows in A = the number of nodes in my graph
-z = sum(as.numeric(names(degreeFrequencies)) * degreeFrequencies). ## Note: the k's are actually the names of my vector entries
+z = sum(as.numeric(names(degreeFrequencies)) * degreeFrequencies) ## Note: the k's are actually the names of my vector entries
 mean(degree(G))
 ```
 
@@ -61,7 +61,7 @@ Okay, now we're ready for some simulations. First we need to make a vector that 
 ```r
 ## Let's assign a random state to each node to start
 nodeStates = runif(nrow(A))
-nodeStates = ifelse(nodeStates < 0.35, 1, 0). ## This says: if the first statement is true (nodeStates < X) then put a 1, else put a 0
+nodeStates = ifelse(nodeStates < 0.35, 1, 0) ## This says: if the first statement is true (nodeStates < X) then put a 1, else put a 0
 
 ## Let's look at our initial state
 plot(G, vertex.label = NA, vertex.size = 10, vertex.color = nodeStates,
